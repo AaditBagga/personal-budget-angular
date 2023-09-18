@@ -4,32 +4,22 @@ const port =3000;
 
 app.use('/', express.static('public'));
 
-const budget = {
-    myBudget: [
-    {
-        title: 'Eat out',
-        budget: 56
-    },
-    {
-        title: 'Rent',
-        budget: 500
-    },
-    {
-        title: 'Groceries',
-        budget: 110
-    },
-    {
-        title: 'Entertainment',
-        budget: 40
-    }
-]};
+
 
 app.get('/hello', (req, res) => {
     res.send('Hello World!');
 });
 
+const fs = require('fs');
+
 app.get('/budget', (req, res) => {
-    res.json(budget);
+    fs.readFile('budget-data.json', 'utf8', (err, data) => {
+        if (err) {
+            res.status(500).send('Error reading data');
+            return;
+        }
+        res.json(JSON.parse(data));
+    });
 });
 
 app.listen(port, () => {
