@@ -208,8 +208,8 @@
             
         }
 
-        function getBudget() {
-            axios.get('/budget')
+        function getBudget() {  
+            axios.get('http://localhost:3000/budget')
             .then(function (res) {
                 console.log(res.data);
                 for (var i = 0; i < res.data.myBudget.length; i++ ) {
